@@ -4,7 +4,8 @@
 # In[1]:
 
 
-my_list = ["reza",62,"sadra",86,"raheleh",62]
+my_list = ["reza",62,"sadra",86,"raheleh",62,"reza"]
+#List items are ordered, changeable, and allow duplicate values
 
 
 # In[2]:
@@ -90,6 +91,19 @@ my_list[1::2]
 my_list[::-1]
 
 
+# In[2]:
+
+
+my_list[-1]
+#Negative indexing means start from the end
+
+
+# In[3]:
+
+
+my_list[-3]
+
+
 # In[15]:
 
 
@@ -144,51 +158,45 @@ my_list.remove(1389)
 #this method get the elemnt from list and remove it
 
 
-# In[ ]:
-
-
-
-
-
 # In[28]:
 
 
 my_list
 
 
-# In[29]:
+# In[7]:
 
 
 eli_list = my_list.copy()
 #this method copy one list to another
 
 
-# In[30]:
+# In[8]:
 
 
 eli_list
 
 
-# In[31]:
+# In[9]:
 
 
 eli_list[0] = "eli"
 eli_list[1] = 59
 
 
-# In[32]:
+# In[10]:
 
 
 eli_list
 
 
-# In[33]:
+# In[11]:
 
 
 eli_list[eli_list.index("raheleh")] = "taha"
 
 
-# In[34]:
+# In[12]:
 
 
 eli_list
@@ -272,8 +280,60 @@ nested_list[3]
 nested_list[3][1::2]
 
 
-# In[ ]:
+# In[4]:
 
 
+if "reza" in my_list:
+    print("yes")
 
+
+# In[13]:
+
+
+#To append elements from another list to the current list, use the extend() method
+ex_list = my_list.copy()
+ex_list.extend(eli_list)
+print(ex_list)
+
+
+# In[14]:
+
+
+#The del keyword also removes the specified index
+del ex_list[0]
+
+
+# In[16]:
+
+
+print(ex_list)
+
+
+# In[17]:
+
+
+#The del keyword can also delete the list completely.
+del ex_list
+
+
+# In[18]:
+
+
+#The clear() method empties the list.
+#The list still remains, but it has no content.
+eli_list.clear()
+
+
+# In[19]:
+
+
+print(eli_list)
+
+
+# In[23]:
+
+
+#Returns the number of elements with the specified value
+print(my_list)
+my_list.count("reza")
 
