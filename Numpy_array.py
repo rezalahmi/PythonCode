@@ -230,7 +230,7 @@ np.in1d("reza",array_1)
 np.in1d("ali",array_1)
 
 
-# In[8]:
+# In[3]:
 
 
 #two dimension
@@ -449,6 +449,182 @@ array_6.reshape(-1,1,4)
 print(array_5)
 new_array_5 = array_5.reshape(-1)
 print(new_array_5)
+
+
+# In[9]:
+
+
+#Iterating means going through elements one by one.
+for x in array_1:
+    print(x)
+
+
+# In[5]:
+
+
+for x in array_2:
+    print(x)
+
+
+# In[6]:
+
+
+for x in array_2:
+    for y in x:
+        print(y)
+
+
+# In[7]:
+
+
+#The function nditer() is a helping function that can be used from 
+#very basic to very advanced iterations
+#In basic for loops, iterating through each scalar of an array we need to use n for 
+#loops which can be difficult to write for arrays with very high dimensionality.
+for x in np.nditer(array_2):
+    print(x)
+
+
+# In[11]:
+
+
+#Enumeration means mentioning sequence number of somethings one by one.
+#Sometimes we require corresponding index of the element while iterating, 
+#the ndenumerate() method can be used for those usecases.
+for i,x in np.ndenumerate(array_2):
+    print(i,x)
+
+
+# In[13]:
+
+
+#Joining means putting contents of two or more arrays in a single array.
+#In SQL we join tables based on a key, whereas in NumPy we join arrays by axes.
+#We pass a sequence of arrays that we want to join to the concatenate() function, 
+#along with the axis
+array_1 = np.array([1,2,3])
+array_2 = np.array([4,5,6])
+array_3 = np.concatenate((array_1,array_2))
+print(array_3)
+
+
+# In[14]:
+
+
+arr1 = np.array([[1, 2], [3, 4]])
+
+arr2 = np.array([[5, 6], [7, 8]])
+
+arr = np.concatenate((arr1, arr2), axis=0)
+print(arr)
+
+
+# In[15]:
+
+
+arr1 = np.array([[1, 2], [3, 4]])
+
+arr2 = np.array([[5, 6], [7, 8]])
+
+arr = np.concatenate((arr1, arr2), axis=1)
+print(arr)
+
+
+# In[20]:
+
+
+#Splitting is reverse operation of Joining.
+#Joining merges multiple arrays into one and Splitting breaks one array into multiple.
+#We use array_split() for splitting arrays, 
+#we pass it the array we want to split and the number of splits.
+arr = np.array([1, 2, 3, 4, 5, 6])
+
+newarr = np.array_split(arr, 3)
+
+print(newarr)
+
+
+# In[21]:
+
+
+newarr = np.array_split(arr, 4)
+
+print(newarr)
+
+
+# In[22]:
+
+
+#If the array has less elements than required, it will adjust from the end accordingly.
+newarr = np.array_split(arr, 7)
+
+print(newarr)
+
+
+# In[23]:
+
+
+#The return value of the array_split() 
+#method is an array containing each of the split as an array.
+newarr = np.array_split(arr, 3)
+
+print(newarr[0])
+print(newarr[1])
+print(newarr[2])
+
+
+# In[26]:
+
+
+#You can search an array for a certain value, and return the indexes that get a match.
+#To search an array, use the where() method.
+array_1 = np.array([1,2,3,4,2,3,6,7])
+x = np.where(array_1==3)
+type(x)
+
+
+# In[28]:
+
+
+for i in np.where(array_1==3):
+    print(i)
+
+
+# In[29]:
+
+
+for i in np.where(array_1%2==0):
+    print(i)
+
+
+# In[30]:
+
+
+#There is a method called searchsorted() which performs a binary search in the array, and returns 
+#the index where the specified value would be inserted to maintain the search order.
+#The searchsorted() method is assumed to be used on sorted arrays.
+array_1 = np.array([1,2,3,4,5,6,7,8,9])
+x = np.searchsorted(array_1,2)
+print(x)
+
+
+# In[31]:
+
+
+x = np.searchsorted(array_1,[2,6,9])
+print(x)
+
+
+# In[32]:
+
+
+#Sorting means putting elements in an ordered sequence.
+#Ordered sequence is any sequence that has an order corresponding to elements, 
+#like numeric or alphabetical, ascending or descending.
+#The NumPy ndarray object has a function called sort(), that will sort a specified array.
+array_1 = np.array([3,5,7,1,5,9,8,3,0,1,2])
+new_array_1 = np.sort(array_1)
+print(new_array_1)
 
 
 # In[ ]:
