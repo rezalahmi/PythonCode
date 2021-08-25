@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[2]:
+# In[3]:
 
 
 #NumPy is a Python library used for working with arrays.
@@ -230,7 +230,7 @@ np.in1d("reza",array_1)
 np.in1d("ali",array_1)
 
 
-# In[3]:
+# In[4]:
 
 
 #two dimension
@@ -303,7 +303,7 @@ array_3[0]
 array_3[0,0,0,0,2]
 
 
-# In[23]:
+# In[5]:
 
 
 array_2
@@ -474,6 +474,13 @@ for x in array_2:
         print(y)
 
 
+# In[10]:
+
+
+for x in array_2.flat:
+    print(x,end=" ")
+
+
 # In[7]:
 
 
@@ -625,6 +632,197 @@ print(x)
 array_1 = np.array([3,5,7,1,5,9,8,3,0,1,2])
 new_array_1 = np.sort(array_1)
 print(new_array_1)
+
+
+# In[12]:
+
+
+#there are three function to full the array in numpy
+array_1 = np.zeros(4)
+array_1
+
+
+# In[13]:
+
+
+#if you want to define type of value in function above use dtype property
+array_1 = np.zeros((2,4),dtype=int)
+array_1
+
+
+# In[14]:
+
+
+array_2 = np.ones((3,4))
+array_2
+
+
+# In[15]:
+
+
+array_2 = np.ones((3,4),dtype = int)
+array_2
+
+
+# In[16]:
+
+
+array_3 = np.full((2,1),12)
+array_3
+
+
+# In[18]:
+
+
+#you can also use arange function to create array
+array_4 = np.arange(3,9)
+array_4
+
+
+# In[20]:
+
+
+#there is linespace function to Return evenly spaced numbers over a specified interval
+np.linspace(2,6)
+#defaul number created is 50
+
+
+# In[21]:
+
+
+np.linspace(2,6,num=4)
+
+
+# In[23]:
+
+
+#after you create array with this two number generator, you can reshape it
+np.arange(1,10).reshape(3,3)
+
+
+# In[25]:
+
+
+np.linspace(1,10,num=20).reshape(4,5)
+
+
+# In[27]:
+
+
+#also you can create array with randon number generator
+np.random.randint(1,50,6)
+
+
+# In[29]:
+
+
+array_5 = np.random.randint(1,100,10)
+array_5
+
+
+# In[30]:
+
+
+#in numpy you can use sum function to return sum of elemnt of array
+array_5.sum()
+
+
+# In[31]:
+
+
+#numpy also create function to find mix, min, mean and std
+array_5.max()
+
+
+# In[32]:
+
+
+array_5.min()
+
+
+# In[33]:
+
+
+array_5.mean()
+
+
+# In[34]:
+
+
+array_5.std()
+
+
+# In[35]:
+
+
+arr1 = np.arange(1,10,2)
+arr2 = np.random.randint(1,100,5)
+
+
+# In[36]:
+
+
+arr1 + arr2
+
+
+# In[37]:
+
+
+arr1*arr2
+
+
+# In[38]:
+
+
+arr1/3
+
+
+# In[39]:
+
+
+arr1*2
+
+
+# In[40]:
+
+
+arr1+=4
+
+
+# In[41]:
+
+
+arr1
+
+
+# In[42]:
+
+
+np.sqrt(arr1)
+
+
+# In[43]:
+
+
+np.sqrt(arr2)
+
+
+# In[45]:
+
+
+#in the example above, two array have the same numbers of elemnt, 
+#if the two array have different number 
+arr1 = np.arange(1,10,2)
+arr2 = np.random.randint(1,100,4)
+print(arr1,end=" ")
+print(arr2,end=" ")
+arr1 + arr2
+
+
+# In[ ]:
+
+
+
 
 
 # In[ ]:
