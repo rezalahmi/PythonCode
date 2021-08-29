@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[3]:
+# In[1]:
 
 
 #NumPy is a Python library used for working with arrays.
@@ -332,7 +332,7 @@ print(array_4[1:5:2])
 print(array_4[::2])
 
 
-# In[41]:
+# In[3]:
 
 
 array_5 = np.array([[1, 2, 3, 4, 5], [6, 7, 8, 9, 10]])
@@ -340,6 +340,7 @@ print(array_5)
 print(array_5[1, 1:4])
 print(array_5[0:2,2])
 print(array_5[0:2,2:4])
+print(array_5[:,(1,4)])
 
 
 # In[42]:
@@ -819,10 +820,190 @@ print(arr2,end=" ")
 arr1 + arr2
 
 
-# In[ ]:
+# In[2]:
 
 
+array_1 = np.random.randint(1,500,15)
 
+
+# In[14]:
+
+
+print(array_1)
+
+
+# In[20]:
+
+
+np.sort(array_1)[8]
+
+
+# In[25]:
+
+
+#Perform an indirect partition along the given axis using the algorithm 
+#specified by the kind keyword. It returns an array of indices of the 
+#same shape as a that index data along the given axis in partitioned order.
+#numpy.argpartition(a, kth, axis=- 1, kind='introselect', order=None)
+#a :Array to sort
+#kth : Element index to partition by. 
+#The k-th element will be in its final sorted position and all smaller elements will be 
+#moved before it and all larger elements behind it
+index_value = np.argpartition(array_1,8)
+#the 8th element in array_1 is 232,index of all smaller value from 232 is
+print(index_value[0:8])
+array_1[index_value[0:8]]
+
+
+# In[26]:
+
+
+#numpy.ravel(a, order='C')[source]
+#Return a contiguous flattened array.
+array_2 = array_1.reshape(3,5)
+array_2
+
+
+# In[29]:
+
+
+np.ravel(array_2)
+
+
+# In[30]:
+
+
+array_2.ravel()
+
+
+# In[32]:
+
+
+#numpy.allclose(a, b, rtol=1e-05, atol=1e-08, equal_nan=False)
+#Returns True if two arrays are element-wise equal within a tolerance.
+np.allclose(array_1,array_2.ravel())
+
+
+# In[35]:
+
+
+array_3 = np.array([0.1,0.2,0.3])
+array_4 = np.array([0.12,0.2,0.32])
+np.allclose(array_3,array_4)
+
+
+# In[36]:
+
+
+np.allclose(array_3,array_4,0.1)
+
+
+# In[37]:
+
+
+np.allclose(array_3,array_4,0.2)
+
+
+# In[39]:
+
+
+#numpy.clip(a, a_min, a_max, out=None, **kwargs)
+#Clip (limit) the values in an array.
+#after clip, we can't see value less than a_min and greater than a_max
+np.clip(array_1,100,300)
+
+
+# In[4]:
+
+
+array_5 = np.random.randint(1,300,20)
+array_6 = array_5.reshape(4,5)
+print(array_6)
+
+
+# In[9]:
+
+
+#numpy.pad(array, pad_width, mode='constant', **kwargs)
+#pad_width = Number of values padded to the edges of each axis.
+array_6_pad = np.pad(array_6,pad_width=1,mode='constant',constant_values = 1)
+array_6_pad
+
+
+# In[10]:
+
+
+array_6_pad = np.pad(array_6,pad_width=1,mode='edge')
+array_6_pad
+
+
+# In[13]:
+
+
+array_6_pad = np.pad(array_6,pad_width=1,mode='mean')
+array_6_pad
+
+
+# In[16]:
+
+
+#numpy.put(a, ind, v, mode='raise')
+#Replaces specified elements of an array with given values.
+np.put(array_6_pad,np.random.choice(range(5,6)),1)
+array_6_pad
+
+
+# In[17]:
+
+
+#Generates a random sample from a given 1-D array
+np.random.choice(range(1,10))
+
+
+# In[18]:
+
+
+#Random values in a given shape.
+np.random.rand(10)
+
+
+# In[19]:
+
+
+#astype:Copy of the array, cast to a specified type.
+array_7 = (np.random.rand(15)*10).astype(int).reshape(3,5)
+array_7
+
+
+# In[20]:
+
+
+array_8 = (np.random.rand(15)*10).astype(int).reshape(3,5)
+array_8
+
+
+# In[21]:
+
+
+array_7 + array_8
+
+
+# In[22]:
+
+
+array_7 * array_8
+
+
+# In[23]:
+
+
+array_7 / array_8
+
+
+# In[24]:
+
+
+(array_7 / array_8).astype(int)
 
 
 # In[ ]:
