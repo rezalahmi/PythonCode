@@ -317,6 +317,180 @@ search = my_fun("my name is reza")
 search('r')
 
 
+# In[14]:
+
+
+#mini project, creating shopping list
+hardware_store_list = {}
+supermarket_list = {}
+def show_list(shopping_list,include_quantity=True):
+    for item,quantity in shopping_list.items():
+        if include_quantity:
+            print(f"{quantity}x {item}")
+        else:
+            print(item)
+def add_item(item,quantity,shopping_list):
+    if not item:
+        quantity = 0
+    if item in shopping_list.keys():
+        shopping_list[item] +=quantity
+    else: shopping_list[item] = quantity
+    return shopping_list
+
+
+# In[15]:
+
+
+hardware_store_list = add_item("Nails", 1, hardware_store_list)
+hardware_store_list = add_item("Screwdriver", 1, hardware_store_list)
+hardware_store_list = add_item("Glue", 3, hardware_store_list)
+
+supermarket_list = add_item("Bread", 1, supermarket_list)
+supermarket_list = add_item("Milk", 2, supermarket_list)
+
+show_list(hardware_store_list)
+show_list(supermarket_list)
+
+
+# In[16]:
+
+
+def show_list(shopping_list, include_quantities=True):
+    print()
+    for item_name, quantity in shopping_list.items():
+        if include_quantities:
+            print(f"{quantity}x {item_name}")
+        else:
+            print(item_name)
+
+def add_item(item_name, quantity, shopping_list={}):
+    if item_name in shopping_list.keys():
+        shopping_list[item_name] += quantity
+    else:
+        shopping_list[item_name] = quantity
+
+    return shopping_list
+
+clothes_shop_list = add_item("Shirt", 3)
+electronics_store_list = add_item("USB cable", 1)
+show_list(clothes_shop_list)
+show_list(electronics_store_list)
+#in the add_item function, shopping_list has the defualt value, you sent an immutable value
+#like list or dictionary to prarameter, so this problem accure
+
+
+# In[17]:
+
+
+# to solve this problem, use None
+def show_list(shopping_list, include_quantities=True):
+    print()
+    for item_name, quantity in shopping_list.items():
+        if include_quantities:
+            print(f"{quantity}x {item_name}")
+        else:
+            print(item_name)
+
+def add_item(item_name, quantity, shopping_list=None):
+    if shopping_list is None:
+        shopping_list = {}
+    if item_name in shopping_list.keys():
+        shopping_list[item_name] += quantity
+    else:
+        shopping_list[item_name] = quantity
+
+    return shopping_list
+
+clothes_shop_list = add_item("Shirt", 3)
+electronics_store_list = add_item("USB cable", 1)
+show_list(clothes_shop_list)
+show_list(electronics_store_list)
+
+
+# In[20]:
+
+
+#it is possible to define a function that accepts any number of optional arguments. 
+#You can even define functions that accept any number of keyword arguments. 
+#Keyword arguments are arguments that have a keyword and a value associated with them
+some_items = ["Coffee", "Tea", "Cake", "Bread"]
+print(some_items)
+#unpacking
+#it unpacks the sequence into its individual components
+print(*some_items)
+
+
+# In[21]:
+
+
+shopping_list = {}
+
+def show_list(shopping_list, include_quantities=True):
+    print()
+    for item_name, quantity in shopping_list.items():
+        if include_quantities:
+            print(f"{quantity}x {item_name}")
+        else:
+            print(item_name)
+
+def add_items(shopping_list, *item_names):
+    for item_name in item_names:
+        shopping_list[item_name] = 1
+
+    return shopping_list
+
+shopping_list = add_items(shopping_list, "Coffee", "Tea", "Cake", "Bread")
+show_list(shopping_list)
+#in the add_items we use unpacking to send more keywork argument
+
+
+# In[23]:
+
+
+def test_arguments(a, b):
+    print(a)
+    print(b)
+
+test_arguments("first argument", "second argument")
+print()
+test_arguments(a="first argument", b="second argument")
+print()
+#In the first function call, the arguments are passed by position, 
+#whereas in the second one they’re passed by keyword. 
+#If you use keyword arguments, you no longer need to input arguments in the order they are defined
+test_arguments(b="second argument", a="first argument")
+
+
+# In[24]:
+
+
+#When defining a function, you can include any number of
+#optional keyword arguments to be included using kwargs, 
+#which stands for keyword arguments
+#The parameter name kwargs is preceded by two asterisks (**). 
+#The double star or asterisk operates similarly to the single asterisk you used earlier
+#to unpack items from a sequence. The double star is used to unpack items from a mapping. 
+#A mapping is a data type that has paired values as items, such as a dictionary.
+shopping_list = {}
+
+def show_list(shopping_list, include_quantities=True):
+    print()
+    for item_name, quantity in shopping_list.items():
+        if include_quantities:
+            print(f"{quantity}x {item_name}")
+        else:
+            print(item_name)
+
+def add_items(shopping_list, **things_to_buy):
+    for item_name, quantity in things_to_buy.items():
+        shopping_list[item_name] = quantity
+
+    return shopping_list
+
+shopping_list = add_items(shopping_list, coffee=1, tea=2, cake=1, bread=3)
+show_list(shopping_list)
+
+
 # In[ ]:
 
 
