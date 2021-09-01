@@ -7,7 +7,7 @@
 import pandas as pd
 
 
-# In[28]:
+# In[2]:
 
 
 #Read a comma-separated values (csv) file into DataFrame.
@@ -108,22 +108,104 @@ df_food['Total Amount'] = df_food['Quantity'] * df_food['Price Per Item']
 df_food.head()
 
 
-# In[ ]:
+# In[3]:
 
 
+df_food.head()
 
 
-
-# In[ ]:
-
+# In[5]:
 
 
+df_food[['Food Order ID','Customer ID','Restaurant Name','Meal Ordered','Quantity','Price Per Item']].head()
 
 
-# In[ ]:
+# In[7]:
 
 
+df_food['totla amount'] = df_food['Quantity'] * df_food['Price Per Item']
+df_food.head()
 
+
+# In[8]:
+
+
+#if you want to determined the row situation which saticfy condition or not, use filter like this
+df_food['Restaurant Name'] == "Oasis Seafood"
+
+
+# In[9]:
+
+
+df_food[df_food['Restaurant Name'] == "Oasis Seafood"]
+
+
+# In[14]:
+
+
+df_food[df_food['totla amount'] > 50]
+
+
+# In[15]:
+
+
+#you can combine filter with logical operator & , |
+df_food[(df_food['Quantity']>2)|(df_food['totla amount']>40)]
+
+
+# In[16]:
+
+
+df_food[(df_food['Quantity']>2)&(df_food['totla amount']>40)]
+
+
+# In[19]:
+
+
+df_food[((df_food['Quantity']>2)|(df_food['totla amount']>40))&(df_food['Day']=="Friday")]
+
+
+# In[24]:
+
+
+#Whether each element in the DataFrame is contained in values.
+df_food[df_food['Customer ID'].isin(['A','B'])]
+
+
+# In[25]:
+
+
+df_food[(df_food['Customer ID'].isin(['A','B']))&(df_food['totla amount']>30)]
+
+
+# In[31]:
+
+
+#est if the start of each string element matches a pattern.
+#str.startswith
+df_food[df_food['Day'].str.startswith('W')]
+
+
+# In[32]:
+
+
+df_food[df_food['Day'].str.startswith('S')]
+
+
+# In[35]:
+
+
+#endswith(pat, na=None)
+#Test if the end of each string element matches a pattern.
+df_food[df_food['Meal Ordered'].str.endswith("er")]
+
+
+# In[37]:
+
+
+#str.contains(pat, case=True, flags=0, na=None, regex=True)
+#Test if pattern or regex is contained within a string of a Series or Index.
+df_food[df_food['Restaurant Name'].str.contains("in")]
 
 
 # In[ ]:
