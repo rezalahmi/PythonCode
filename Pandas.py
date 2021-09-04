@@ -96,7 +96,7 @@ df_float.dtypes
 df_food.head()
 
 
-# In[24]:
+# In[3]:
 
 
 df_food['Total Amount'] = df_food['Quantity'] * df_food['Price Per Item']
@@ -200,7 +200,7 @@ df_food[df_food['Day'].str.startswith('S')]
 df_food[df_food['Meal Ordered'].str.endswith("er")]
 
 
-# In[37]:
+# In[4]:
 
 
 #str.contains(pat, case=True, flags=0, na=None, regex=True)
@@ -208,10 +208,115 @@ df_food[df_food['Meal Ordered'].str.endswith("er")]
 df_food[df_food['Restaurant Name'].str.contains("in")]
 
 
-# In[ ]:
+# In[6]:
 
 
+#DataFrame.sort_values
+#Sort by the values along either axis
+df_food.sort_values(by="Total Amount", ascending=True).head(10)
 
+
+# In[7]:
+
+
+df_food.sort_values(by="Total Amount", ascending=False).head(10)
+
+
+# In[9]:
+
+
+df_food.sort_values(by=["Total Amount","Quantity"], ascending=False).head(10)
+
+
+# In[11]:
+
+
+df_food.sort_values(by=["Meal Ordered","Quantity"], ascending=(False,True)).head(10)
+
+
+# In[18]:
+
+
+df_food.head()
+
+
+# In[19]:
+
+
+#pandas.DataFrame.loc
+#Access a group of rows and columns by label(s) or a boolean array.
+df_food.loc[1,['Meal Ordered']]
+
+
+# In[20]:
+
+
+df_food.loc[1,:]
+
+
+# In[21]:
+
+
+df_food.loc[df_food['Price Per Item']>15,:]
+
+
+# In[26]:
+
+
+df_food.loc[df_food['Price Per Item']>15,:].sort_values(by=['Meal Ordered','Total Amount'],                                                        ascending=(True,True))
+
+
+# In[27]:
+
+
+#Bucketing or Binning of continuous variable in pandas python to discrete chunks is depicted
+#for bucketing using loc method, first you must create column with defualt value
+df_food['Amount - Bucket'] = '--out of bound--'
+df_food.head()
+
+
+# In[30]:
+
+
+#then filter values and assign label to them
+df_food.loc[(df_food['Total Amount']>0)&(df_food['Total Amount']<=20),'Amount - Bucket']='Low'
+df_food.loc[(df_food['Total Amount']>20)&(df_food['Total Amount']<=40),'Amount - Bucket']='Mid'
+df_food.loc[(df_food['Total Amount']>40),'Amount - Bucket']='High'
+
+
+# In[31]:
+
+
+df_food.head()
+
+
+# In[33]:
+
+
+#for bucketing you can use another way, using cau method
+#pandas.cut
+#Bin values into discrete intervals.Use cut when you need to segment and sort data values into bins
+bin = [0,20,40,60]
+df_food['Amount - Binning'] = pd.cut(df_food['Total Amount'],bin)
+df_food.head()
+
+
+# In[38]:
+
+
+#We will be assigning label to each bin
+bin_label = ['low','mid','high']
+df_food['Amount - Bucketing'] = pd.cut(df_food['Total Amount'],bin,labels=bin_label)
+df_food.head()
+
+
+# In[40]:
+
+
+#bucketing using loc method
+df_food['Vegan'] = 'Not Vegan'
+df_food.loc[df_food['Restaurant Name'].str.contains('Green'),'Vegan']='Vegan'
+df_food.head()
 
 
 # In[ ]:
