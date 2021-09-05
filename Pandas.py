@@ -319,6 +319,118 @@ df_food.loc[df_food['Restaurant Name'].str.contains('Green'),'Vegan']='Vegan'
 df_food.head()
 
 
+# In[4]:
+
+
+#replacing data
+df_food.head()
+
+
+# In[6]:
+
+
+df_food['Customer ID'].unique()
+
+
+# In[7]:
+
+
+#DataFrame.replace
+#Values of the DataFrame are replaced with other values dynamically.
+df_food['Customer ID'].replace({'A':'A001','B':'B001','C':'C001','D':'D001','E':'E001'                               ,'F':'F001','G':'G001','H':'H001','I':'I001','J':'J001'                               ,'K':'K001','L':'L001','M':'M001'},inplace=True)
+
+
+# In[8]:
+
+
+df_food.head(10)
+
+
+# In[10]:
+
+
+df_food['Day'].unique()
+
+
+# In[11]:
+
+
+df_food['Day'].replace({'Monday':'01 - Monday','Tuesday':'02 - Tuesday'                       ,'Wednesday':'03 - Wednesday','Thursday':'04 - Thursday'                       ,'Friday':'05 - Friday','Saturday':'06 - Saturday'                       ,'Sunday':'07 - Sunday'},inplace = True)
+
+
+# In[12]:
+
+
+df_food.head(10)
+
+
+# In[15]:
+
+
+df_food.sort_values(by=['Day'],ascending = True)
+
+
+# In[32]:
+
+
+#Group DataFrame using a mapper or by a Series of columns
+df_food.groupby('Customer ID')
+
+
+# In[33]:
+
+
+df_food.groupby('Customer ID').max()
+
+
+# In[35]:
+
+
+df_food.groupby(['Customer ID'],as_index = False).mean()
+
+
+# In[36]:
+
+
+df_food.groupby(['Customer ID'],as_index =False).count()
+
+
+# In[37]:
+
+
+df_food.groupby(['Customer ID'],as_index = False).agg({'Total Amount':['max','min','mean','count']})
+
+
+# In[39]:
+
+
+df_food.groupby(['Restaurant Name'],as_index = False).agg({'Total Amount':['max','min','mean','count']})
+
+
+# In[40]:
+
+
+df_food.groupby(['Day'],as_index = False).agg({'Total Amount':['max','min','mean','count']})
+
+
+# In[42]:
+
+
+df_food.groupby(['Restaurant Name','Day']).mean()
+
+
+# In[46]:
+
+
+df_food.groupby(['Restaurant Name','Meal Ordered']).sum()
+
+
+# In[ ]:
+
+
+
+
+
 # In[ ]:
 
 
