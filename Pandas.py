@@ -425,24 +425,194 @@ df_food.groupby(['Restaurant Name','Day']).mean()
 df_food.groupby(['Restaurant Name','Meal Ordered']).sum()
 
 
-# In[ ]:
+# In[1]:
 
 
+import pandas as pd
 
 
+# In[3]:
 
-# In[ ]:
-df_football = pd.read_csv(r'38.1 Football (Soccer) Teams - Null Values.csv')
+
+df_football = pd.read_csv(r'D:\Udemy\Udemy - The Python Bootcamp Data Science, Analytics & Visualisation\7. Data Analytics (Pandas)\38.1 Football (Soccer) Teams - Null Values.csv')
+
+
+# In[4]:
+
+
 df_football.head()
-#Remove missing values and return new dataframe
-df_fb_without_na = df_football.dropna()
-#Fill NA/NaN values using the specified method
+
+
+# In[5]:
+
+
+df_football.describe()
+
+
+# In[7]:
+
+
+df_football.isna()
+
+
+# In[9]:
+
+
 df_football['Champions League'].fillna(df_football['Champions League'].mean(),inplace=True)
+
+
+# In[10]:
+
+
 df_football['League Champions'].fillna(df_football['League Champions'].mean(),inplace=True)
-##if you you want to fill NaN value manully
-df_ftball = pd.read_csv(r'38.1 Football (Soccer) Teams - Null Values.csv')
-df_ftball['Champions League'].fillna(1,inplace=True)
-df_ftball['League Champions'].fillna(20,inplace=True)
+
+
+# In[11]:
+
+
+df_football
+
+
+# In[12]:
+
+
+new_df_football = pd.read_csv(r'D:\Udemy\Udemy - The Python Bootcamp Data Science, Analytics & Visualisation\7. Data Analytics (Pandas)\38.1 Football (Soccer) Teams - Null Values.csv')
+new_df_football['Champions League'].fillna(1,inplace=True)
+new_df_football['League Champions'].fillna(20,inplace=True)
+
+
+# In[13]:
+
+
+new_df_football = pd.read_csv(r'D:\Udemy\Udemy - The Python Bootcamp Data Science, Analytics & Visualisation\7. Data Analytics (Pandas)\38.1 Football (Soccer) Teams - Null Values.csv')
+
+
+# In[14]:
+
+
+new_df_football
+
+
+# In[15]:
+
+
+new_df_football['Champions League'].isna()
+
+
+# In[17]:
+
+
+any(new_df_football['Champions League'].isna())
+
+
+# In[21]:
+
+
+#if you want to know is NaN in the column, use any method like abouv
+for x in new_df_football.columns:
+    if any(new_df_football[x].isna()):
+        print(x)
+
+
+# In[26]:
+
+
+def check_NaN(df):
+    for col in df.columns:
+        if any(df[col].isna()):
+            df[col].fillna(df[col].mean(),inplace=True)
+    return df
+
+
+# In[23]:
+
+
+new_df_football
+
+
+# In[27]:
+
+
+new_df_football_withoutNaN=check_NaN(new_df_football)
+
+
+# In[28]:
+
+
+new_df_football_withoutNaN
+
+
+# In[29]:
+
+
+df_resturant = pd.read_csv(r'D:\Udemy\Udemy - The Python Bootcamp Data Science, Analytics & Visualisation\7. Data Analytics (Pandas)\40.1 Restaurants - Duplicates.csv')
+df_resturant.head(10)
+
+
+# In[31]:
+
+
+#Return boolean Series denoting duplicate rows.
+df_resturant.duplicated()
+
+
+# In[41]:
+
+
+if any(df_resturant.duplicated()):
+    print("we have duplicate")
+
+
+# In[42]:
+
+
+#if you want to show duplicated rows
+df_resturant[df_resturant.duplicated()]
+
+
+# In[49]:
+
+
+df_resturant[df_resturant.duplicated(['Quantity'])]
+
+
+# In[50]:
+
+
+df_resturant[df_resturant.duplicated(['Meal Description'])]
+
+
+# In[51]:
+
+
+#DataFrame.drop_duplicates
+#Return DataFrame with duplicate rows removed.
+df_resturant_i = df_resturant.drop_duplicates(df_resturant.columns)
+
+
+# In[54]:
+
+
+any(df_resturant_i.duplicated())
+
+
+# In[55]:
+
+
+def check_duplicate(df):
+    if any(df.duplicated()):
+        return df.drop_duplicates(df.columns)
+
+
+# In[57]:
+
+
+df_resturant_j = check_duplicate(df_resturant)
+any(df_resturant_j.duplicated())
+
+
+# In[ ]:
+
 
 
 
