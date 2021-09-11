@@ -18,3 +18,13 @@ def check_duplicate(df):
     #remove them
     if any(df.duplicated()):
         return df.drop_duplicates(df.columns)
+##################################################
+def append_data_frame(list_df):
+    #in this function, we get list of data frame
+    # and want to append them together
+    import pandas as pd
+    appended = pd.DataFrame()
+    for df in list_df:
+        appended= appended.append(df,ignore_index = True)
+    return appended
+##################################################
