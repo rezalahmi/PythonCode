@@ -611,6 +611,127 @@ df_resturant_j = check_duplicate(df_resturant)
 any(df_resturant_j.duplicated())
 
 
+# In[1]:
+
+
+import pandas as pd
+
+
+# In[3]:
+
+
+df_show_A = pd.read_csv(r'D:\Udemy\Udemy - The Python Bootcamp Data Science, Analytics & Visualisation\7. Data Analytics (Pandas)\62.2 Joining - 2 Keys - A.csv')
+df_show_B = pd.read_csv(r'D:\Udemy\Udemy - The Python Bootcamp Data Science, Analytics & Visualisation\7. Data Analytics (Pandas)\62.1 Joining - 2 Keys - B.csv')
+
+
+# In[4]:
+
+
+df_show_A.head()
+
+
+# In[5]:
+
+
+df_show_B.head()
+
+
+# In[7]:
+
+
+df_show_A.merge(df_show_B,how='inner',left_on='Shop ID',right_on='Shop ID')
+
+
+# In[8]:
+
+
+pd.merge(df_show_A,df_show_B,how='left',left_on=['Shop ID','Department'],right_on=['Shop ID','Department'])
+
+
+# In[9]:
+
+
+#if you want to join two dataframe with more than one culomns, use merge
+df_merge_AB = pd.merge(df_show_A,df_show_B,how='left',left_on=['Shop ID','Department'],right_on=['Shop ID','Department'])
+
+
+# In[10]:
+
+
+df_merge_AB
+
+
+# In[12]:
+
+
+df_merge_AB['Expensive'] = df_merge_AB['Revenue'] - df_merge_AB['Profit']
+
+
+# In[13]:
+
+
+df_merge_AB
+
+
+# In[15]:
+
+
+#for cleaning data from unwanted columns, use this format
+df_AB_clean = df_merge_AB[['Shop ID','Department','Shop Name_x','Shop Region','Revenue','Profit'                          ,'Expensive','No of Employees','Shop Size (Square Ft)']]
+
+
+# In[16]:
+
+
+df_AB_clean
+
+
+# In[19]:
+
+
+#for rename data frame, use dictionary like this
+df_AB_master = df_AB_clean.rename(columns={'Shop Name_x':'Shop Name'})
+
+
+# In[22]:
+
+
+df_AB_master
+
+
+# In[28]:
+
+
+#if you want to calculate comulative sum or runing total, use this method
+df_AB_master['Revenue - Comulative Sum'] = df_AB_master['Revenue'].expanding().sum()
+
+
+# In[29]:
+
+
+df_AB_master
+
+
+# In[30]:
+
+
+#with this method, you can calculate comulative mean
+df_AB_master['Revenue - Comulative Mean'] = df_AB_master['Revenue'].expanding().mean()
+
+
+# In[31]:
+
+
+df_AB_master
+
+
+# In[32]:
+
+
+df_AB_master['Revenue - Comulative Mean'] = round(df_AB_master['Revenue'].expanding().mean(),2)
+df_AB_master
+
+
 # In[ ]:
 
 
