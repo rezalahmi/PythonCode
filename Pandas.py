@@ -7,7 +7,7 @@
 import pandas as pd
 
 
-# In[2]:
+# In[38]:
 
 
 #Read a comma-separated values (csv) file into DataFrame.
@@ -48,10 +48,11 @@ len(df_food.columns)
 df_food.shape
 
 
-# In[15]:
+# In[49]:
 
 
-df_food.info
+#The DataFrames object has a method called info(), that gives you more information about the data set.
+df_food.info()
 
 
 # In[16]:
@@ -96,7 +97,7 @@ df_float.dtypes
 df_food.head()
 
 
-# In[3]:
+# In[39]:
 
 
 df_food['Total Amount'] = df_food['Quantity'] * df_food['Price Per Item']
@@ -458,6 +459,7 @@ df_football.isna()
 # In[9]:
 
 
+#The fillna() method allows us to replace empty cells with a value
 df_football['Champions League'].fillna(df_football['Champions League'].mean(),inplace=True)
 
 
@@ -617,7 +619,7 @@ any(df_resturant_j.duplicated())
 import pandas as pd
 
 
-# In[3]:
+# In[2]:
 
 
 df_show_A = pd.read_csv(r'D:\Udemy\Udemy - The Python Bootcamp Data Science, Analytics & Visualisation\7. Data Analytics (Pandas)\62.2 Joining - 2 Keys - A.csv')
@@ -636,7 +638,7 @@ df_show_A.head()
 df_show_B.head()
 
 
-# In[7]:
+# In[3]:
 
 
 df_show_A.merge(df_show_B,how='inner',left_on='Shop ID',right_on='Shop ID')
@@ -648,20 +650,20 @@ df_show_A.merge(df_show_B,how='inner',left_on='Shop ID',right_on='Shop ID')
 pd.merge(df_show_A,df_show_B,how='left',left_on=['Shop ID','Department'],right_on=['Shop ID','Department'])
 
 
-# In[9]:
+# In[4]:
 
 
 #if you want to join two dataframe with more than one culomns, use merge
 df_merge_AB = pd.merge(df_show_A,df_show_B,how='left',left_on=['Shop ID','Department'],right_on=['Shop ID','Department'])
 
 
-# In[10]:
+# In[5]:
 
 
 df_merge_AB
 
 
-# In[12]:
+# In[6]:
 
 
 df_merge_AB['Expensive'] = df_merge_AB['Revenue'] - df_merge_AB['Profit']
@@ -673,7 +675,7 @@ df_merge_AB['Expensive'] = df_merge_AB['Revenue'] - df_merge_AB['Profit']
 df_merge_AB
 
 
-# In[15]:
+# In[8]:
 
 
 #for cleaning data from unwanted columns, use this format
@@ -686,7 +688,7 @@ df_AB_clean = df_merge_AB[['Shop ID','Department','Shop Name_x','Shop Region','R
 df_AB_clean
 
 
-# In[19]:
+# In[9]:
 
 
 #for rename data frame, use dictionary like this
@@ -699,7 +701,7 @@ df_AB_master = df_AB_clean.rename(columns={'Shop Name_x':'Shop Name'})
 df_AB_master
 
 
-# In[28]:
+# In[10]:
 
 
 #if you want to calculate comulative sum or runing total, use this method
@@ -712,7 +714,7 @@ df_AB_master['Revenue - Comulative Sum'] = df_AB_master['Revenue'].expanding().s
 df_AB_master
 
 
-# In[30]:
+# In[11]:
 
 
 #with this method, you can calculate comulative mean
@@ -730,6 +732,239 @@ df_AB_master
 
 df_AB_master['Revenue - Comulative Mean'] = round(df_AB_master['Revenue'].expanding().mean(),2)
 df_AB_master
+
+
+# In[14]:
+
+
+df_AB_master.index+1
+
+
+# In[15]:
+
+
+#with index attribute you can add row number to data frame
+df_AB_master['Row Number'] = df_AB_master.index+1
+
+
+# In[16]:
+
+
+df_AB_master
+
+
+# In[17]:
+
+
+#if you want to ordering data based on rank, use rank() method
+df_AB_master.rank()
+
+
+# In[21]:
+
+
+df_AB_master['Revenue'].rank(ascending=True)
+
+
+# In[28]:
+
+
+df_AB_master['Rank - Revenue'] = df_AB_master['Revenue'].rank(ascending=False)
+
+
+# In[29]:
+
+
+df_AB_master
+
+
+# In[34]:
+
+
+#A Pandas Series is like a column in a table.
+
+#It is a one-dimensional array holding data of any type.
+a = [1,5,7]
+my_series = pd.Series(a)
+my_series
+
+
+# In[35]:
+
+
+print(my_series[1])
+
+
+# In[36]:
+
+
+#With the index argument, you can name your own labels.
+my_series = pd.Series(a,index = ['x','y','z'])
+print(my_series['y'])
+
+
+# In[37]:
+
+
+#You can also use a key/value object, like a dictionary, when creating a Series.
+calories = {"day1": 420, "day2": 380, "day3": 390}
+my_series = pd.Series(calories)
+print(my_series['day1'])
+
+
+# In[45]:
+
+
+#Big data sets are often stored, or extracted as JSON.
+
+#JSON is plain text, but has the format of an object, 
+#and is well known in the world of programming, including Pandas.
+#JSON objects have the same format as Python dictionaries.
+
+df_jason = pd.read_json('D:\data.js')
+
+
+# In[46]:
+
+
+df_jason
+
+
+# In[48]:
+
+
+#There is also a tail() method for viewing the last rows of the DataFrame.
+
+#The tail() method returns the headers and a specified number of rows, starting from the bottom.
+df_jason.tail()
+
+
+# In[51]:
+
+
+df_jason.info()
+
+
+# In[64]:
+
+
+df_dirty = pd.read_csv('F:\Document\PythonCode\dirtydata.csv')
+
+
+# In[65]:
+
+
+df_dirty.head()
+
+
+# In[66]:
+
+
+df_dirty.info()
+
+
+# In[68]:
+
+
+#Empty cells can potentially give you a wrong result when you analyze data.
+#One way to deal with empty cells is to remove rows that contain empty cells.
+new_df = df_dirty.dropna()
+#the dropna() method returns a new DataFrame, and will not change the original.
+new_df.info()
+
+
+# In[69]:
+
+
+temp_df_dirty = df_dirty
+temp_df_dirty.info()
+
+
+# In[71]:
+
+
+#Now, the dropna(inplace = True) will NOT return a new DataFrame, 
+#but it will remove all rows containg NULL values from the original DataFrame.
+temp_df_dirty.dropna(inplace = True)
+temp_df_dirty.info()
+
+
+# In[73]:
+
+
+df_dirty['Date']
+
+
+# In[74]:
+
+
+#for fix the wrong format of date, use to_datetime method
+df_dirty['Date'] = pd.to_datetime(df_dirty['Date'])
+df_dirty['Date']
+
+
+# In[75]:
+
+
+df_dirty.info()
+
+
+# In[76]:
+
+
+for x in df_dirty.index:
+    if df_dirty.loc[x,'Duration']>120:
+        df_dirty.loc[x,'Duration'] = 120
+
+
+# In[78]:
+
+
+df_dirty['Duration']
+
+
+# In[83]:
+
+
+for x in df_dirty.index:
+    if df_dirty.loc[x,'Duration']>=120:
+        df_dirty.loc[x,'Duration'] = (df_dirty['Duration'].mean())
+
+
+# In[84]:
+
+
+df_dirty['Duration']
+
+
+# In[85]:
+
+
+#A great aspect of the Pandas module is the corr() method.
+
+#The corr() method calculates the relationship between each column in your data set.
+#The corr() method ignores "not numeric" columns.
+df_dirty.corr()
+
+
+# In[87]:
+
+
+#Pandas uses the plot() method to create diagrams.
+df_dirty.plot()
+
+
+# In[88]:
+
+
+df_dirty.plot(kind='scatter',x = 'Duration', y = 'Calories')
+
+
+# In[90]:
+
+
+#Use the kind argument to specify that you want a histogram
+df_dirty['Duration'].plot(kind='hist')
 
 
 # In[ ]:
