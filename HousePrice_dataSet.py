@@ -15,19 +15,19 @@ df_housePrice.head()
 df_housePrice.info()
 
 
-# In[3]:
+# In[2]:
 
 
 df_housePrice[df_housePrice.duplicated()]
 
 
-# In[4]:
+# In[3]:
 
 
 df_housePrice.drop_duplicates(inplace = True)
 
 
-# In[5]:
+# In[4]:
 
 
 df_housePrice[df_housePrice.duplicated()]
@@ -39,13 +39,13 @@ df_housePrice[df_housePrice.duplicated()]
 df_housePrice.corr()
 
 
-# In[9]:
+# In[5]:
 
 
 df_housePrice.groupby(['Address']).mean()
 
 
-# In[26]:
+# In[6]:
 
 
 Address_meanPrice = df_housePrice.groupby(['Address'])['Price'].mean()
@@ -58,12 +58,16 @@ Address_meanPrice['Shahran']
 df_housePrice.head()
 
 
-# In[29]:
+# In[7]:
 
 
-for x in df_housePrice['Address']:
-    df_housePrice['Address - MeanPrice'] = Address_meanPrice[x]
-        
+df_housePrice['Address - MeanPrice'] = df_housePrice.groupby('Address')['Price'].transform('mean')
+
+
+# In[8]:
+
+
+df_housePrice.head()
 
 
 # In[ ]:
