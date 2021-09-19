@@ -162,7 +162,7 @@ olympics.describe()
 olympics.head()
 
 
-# In[14]:
+# In[2]:
 
 
 olympics = pd.read_csv(r'athlete_events.csv',index_col = 'ID')
@@ -271,6 +271,170 @@ olympics.loc[1:5,'Name':'Team']
 
 
 olympics.loc[5]
+
+
+# In[3]:
+
+
+#Data Series
+age = olympics['Age']
+
+
+# In[4]:
+
+
+age
+
+
+# In[5]:
+
+
+age.describe()
+
+
+# In[6]:
+
+
+age.count()
+
+
+# In[7]:
+
+
+age.size
+
+
+# In[8]:
+
+
+len(age)
+
+
+# In[9]:
+
+
+#sum function can't handle nan values
+sum(age)
+
+
+# In[10]:
+
+
+age.sum()
+
+
+# In[11]:
+
+
+#skipna is a prameter in sum method to ignore the nan values
+age.sum(skipna=True)
+
+
+# In[12]:
+
+
+age.sum(skipna=False)
+
+
+# In[13]:
+
+
+age.mean()
+
+
+# In[14]:
+
+
+age.median()
+
+
+# In[15]:
+
+
+age.std()
+
+
+# In[16]:
+
+
+age.min()
+
+
+# In[17]:
+
+
+age.max()
+
+
+# In[18]:
+
+
+#return unique values
+age.unique()
+
+
+# In[20]:
+
+
+#if you want to count number of unique element, use len function
+len(age.unique())
+
+
+# In[21]:
+
+
+#also this method return number of unique values
+age.nunique()
+
+
+# In[22]:
+
+
+#you can see, there is a differente, nunique method has parameteres for NAN
+age.nunique(dropna=False)
+#dropna is True by defualt, so didn't count NAN
+
+
+# In[23]:
+
+
+#if you want to frequency of each element, use this method
+age.value_counts()
+
+
+# In[24]:
+
+
+#if you set sort by false, the data show by apperiance
+age.value_counts(sort = False)
+
+
+# In[25]:
+
+
+#this parameter ignore NaN
+age.value_counts(dropna=True)
+
+
+# In[28]:
+
+
+age.value_counts(ascending=True)
+
+
+# In[29]:
+
+
+age.value_counts(normalize=True)
+# If True then the object returned will contain the relative
+    #frequencies of the unique values.
+
+
+# In[30]:
+
+
+#Rather than count values, group them into half-open bins
+age.value_counts(bins=5)
 
 
 # In[ ]:
