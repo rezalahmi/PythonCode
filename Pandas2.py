@@ -138,7 +138,7 @@ type(titanic[['Age']])
 titanic.Age
 
 
-# In[9]:
+# In[2]:
 
 
 olympics = pd.read_csv(r'athlete_events.csv')
@@ -162,14 +162,14 @@ olympics.describe()
 olympics.head()
 
 
-# In[2]:
+# In[38]:
 
 
 olympics = pd.read_csv(r'athlete_events.csv',index_col = 'ID')
 #index_col:Column(s) to use as the row labels of the DataFrame, either given as string name or column index.
 
 
-# In[15]:
+# In[4]:
 
 
 olympics
@@ -273,7 +273,7 @@ olympics.loc[1:5,'Name':'Team']
 olympics.loc[5]
 
 
-# In[3]:
+# In[39]:
 
 
 #Data Series
@@ -435,6 +435,399 @@ age.value_counts(normalize=True)
 
 #Rather than count values, group them into half-open bins
 age.value_counts(bins=5)
+
+
+# In[5]:
+
+
+name = olympics['Name']
+
+
+# In[6]:
+
+
+name.head()
+
+
+# In[7]:
+
+
+name.tail()
+
+
+# In[10]:
+
+
+name.describe()
+
+
+# In[11]:
+
+
+name.shape
+
+
+# In[12]:
+
+
+name.size
+
+
+# In[14]:
+
+
+name.count()
+
+
+# In[15]:
+
+
+name.min()
+
+
+# In[16]:
+
+
+name.unique()
+
+
+# In[17]:
+
+
+len(name.unique())
+
+
+# In[18]:
+
+
+name.nunique()
+
+
+# In[19]:
+
+
+name.nunique(dropna=False)
+
+
+# In[20]:
+
+
+name.nunique(dropna=True)
+
+
+# In[21]:
+
+
+name.value_counts()
+
+
+# In[24]:
+
+
+name.value_counts(normalize=True)
+
+
+# In[25]:
+
+
+name.value_counts(normalize=True).head()
+
+
+# In[26]:
+
+
+summer = pd.read_csv(r'Summer-Olympic-medals-1976-to-2008.csv')
+
+
+# In[27]:
+
+
+summer.head()
+
+
+# In[29]:
+
+
+summer.iloc[0]
+
+
+# In[31]:
+
+
+#for creating data series, you can use column for importing data
+pd.read_csv(r'Summer-Olympic-medals-1976-to-2008.csv',squeeze=True,usecols=['Athlete'])
+
+
+# In[32]:
+
+
+athlete = pd.read_csv(r'Summer-Olympic-medals-1976-to-2008.csv',squeeze=True,usecols=['Athlete'])
+
+
+# In[33]:
+
+
+athlete.head()
+
+
+# In[34]:
+
+
+athlete.tail()
+
+
+# In[35]:
+
+
+athlete.sort_values()
+
+
+# In[36]:
+
+
+#if you want sort the values of data series
+athlete.sort_values(inplace=True)
+
+
+# In[37]:
+
+
+athlete
+
+
+# In[44]:
+
+
+#if you want 3th largest age
+age.sort_values(ascending=False).head(3)
+
+
+# In[45]:
+
+
+#also you can use nlargest
+age.nlargest(3)
+
+
+# In[48]:
+
+
+age.sort_values(ascending=True).iloc[:3]
+
+
+# In[49]:
+
+
+age.nsmallest(3)
+
+
+# In[53]:
+
+
+olympics
+
+
+# In[55]:
+
+
+olympics.Age.idxmax()
+
+
+# In[58]:
+
+
+olympics.Age.idxmin()
+
+
+# In[73]:
+
+
+olympics.loc[71691]
+
+
+# In[74]:
+
+
+olympics.loc[128719]
+
+
+# In[75]:
+
+
+olympics.info()
+
+
+# In[76]:
+
+
+olympics.index
+
+
+# In[77]:
+
+
+type(olympics.index)
+
+
+# In[78]:
+
+
+olympics.columns
+
+
+# In[79]:
+
+
+type(olympics.columns)
+
+
+# In[106]:
+
+
+olympics = pd.read_csv(r'athlete_events.csv',index_col='Name')
+
+
+# In[85]:
+
+
+olympics.head()
+
+
+# In[86]:
+
+
+olympics.index
+
+
+# In[87]:
+
+
+type(olympics.index)
+
+
+# In[88]:
+
+
+olympics.index[0]
+
+
+# In[91]:
+
+
+#if you want to know column values are unique, use is_unique attribute
+olympics.index.is_unique
+
+
+# In[94]:
+
+
+#get_loc method, get label and retrun location
+olympics.index.get_loc('A Dijiang')
+
+
+# In[96]:
+
+
+olympics.index
+
+
+# In[99]:
+
+
+#sometime you should reset the index on data frame. use reset_index
+olympics.reset_index()
+
+
+# In[100]:
+
+
+olympics.head()
+
+
+# In[107]:
+
+
+#be sure use inplace parameter
+olympics.reset_index(inplace=True)
+
+
+# In[108]:
+
+
+olympics.head()
+
+
+# In[98]:
+
+
+#if you want to set index, use set_index
+olympics.set_index('ID')
+
+
+# In[109]:
+
+
+#if you set index column, the index_column remove from list of column, so use
+#drop parameter to don't do that
+#olympics.reset_index(inplace=True)
+olympics.set_index('ID',drop=False)
+olympics.head()
+
+
+# In[111]:
+
+
+olympics.index
+
+
+# In[112]:
+
+
+olympics.index.is_unique
+
+
+# In[113]:
+
+
+#if you want to create uniqu index, use this technique
+new_index = ['Athlete_{}'.format(i) for i in range(1,olympics.index.size+1)]
+
+
+# In[114]:
+
+
+new_index
+
+
+# In[115]:
+
+
+olympics.index = new_index
+
+
+# In[116]:
+
+
+olympics.head()
+
+
+# In[117]:
+
+
+olympics.tail()
+
+
+# In[118]:
+
+
+#to change the name of columns
+olympics.rename(columns={'Sex':'Gender'},inplace=True)
+
+
+# In[119]:
+
+
+olympics.head()
 
 
 # In[ ]:
