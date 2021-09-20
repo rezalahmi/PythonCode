@@ -681,7 +681,7 @@ olympics.columns
 type(olympics.columns)
 
 
-# In[106]:
+# In[13]:
 
 
 olympics = pd.read_csv(r'athlete_events.csv',index_col='Name')
@@ -828,6 +828,159 @@ olympics.rename(columns={'Sex':'Gender'},inplace=True)
 
 
 olympics.head()
+
+
+# In[5]:
+
+
+titanic[titanic.Sex == 'male']
+
+
+# In[6]:
+
+
+titanic.Fare[titanic.Sex == 'male']
+
+
+# In[7]:
+
+
+#we recomend this method, because this format can use for more than one columns
+titanic.loc[titanic.Sex == 'male',['Age','Fare']]
+
+
+# In[10]:
+
+
+#if you want to show all numeric data. use this techniqu
+mask = titanic.dtypes != object
+titanic.loc[:,mask]
+
+
+# In[12]:
+
+
+titanic.loc[:,~mask]
+
+
+# In[14]:
+
+
+olympics.info()
+
+
+# In[17]:
+
+
+#between is usefull filter
+olympics[olympics.Year.between(1990,1999)]
+
+
+# In[18]:
+
+
+olympics[olympics.Year.between(1990,1999,inclusive=True)]
+
+
+# In[19]:
+
+
+#if you want to check something within a set use isin
+mask1 = [1992,2012]
+olympics.loc[olympics.Year.isin(mask1)]
+
+
+# In[28]:
+
+
+olympics.loc[~olympics.Year.isin(mask1)]['Year'].unique()
+
+
+# In[29]:
+
+
+titanic.info()
+
+
+# In[44]:
+
+
+#Return whether any element is True, potentially over an axis.
+(titanic.Sex == 'Male').any()
+
+
+# In[34]:
+
+
+#Return whether all elements are True, potentially over an axis.
+(titanic.Sex != 'Male').all()
+
+
+# In[37]:
+
+
+titanic.loc[titanic.Sex == 'Male']
+
+
+# In[38]:
+
+
+titanic.Age.mean()
+
+
+# In[43]:
+
+
+(titanic.Age >= 90).any()
+
+
+# In[45]:
+
+
+titanic.head()
+
+
+# In[46]:
+
+
+titanic.drop(index=0,inplace=True)
+
+
+# In[47]:
+
+
+titanic.head()
+
+
+# In[51]:
+
+
+(titanic.Age >=80).value_counts()
+
+
+# In[52]:
+
+
+titanic.loc[titanic.Age>=80]
+
+
+# In[53]:
+
+
+olympics.info()
+
+
+# In[55]:
+
+
+#if you want to know is a value in the data frame
+1996 in olympics.Year.values
+
+
+# In[56]:
+
+
+olympics.head(10)
 
 
 # In[ ]:
