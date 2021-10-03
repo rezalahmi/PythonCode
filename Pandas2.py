@@ -983,6 +983,308 @@ olympics.info()
 olympics.head(10)
 
 
+# In[3]:
+
+
+(titanic.Age <=1).any()
+
+
+# In[4]:
+
+
+titanic.loc[titanic.Age <=1,'Age']=1
+
+
+# In[5]:
+
+
+(titanic.Age <1).any()
+
+
+# In[6]:
+
+
+#if you want to replace one value to new value, use replace method
+titanic.replace(0,'Zero')
+
+
+# In[7]:
+
+
+age = titanic.Age
+
+
+# In[9]:
+
+
+age._is_view
+
+
+# In[11]:
+
+
+temp = titanic
+
+
+# In[12]:
+
+
+temp._is_view
+
+
+# In[14]:
+
+
+age = titanic.Age.copy()
+
+
+# In[15]:
+
+
+age._is_view
+
+
+# In[3]:
+
+
+titanic.agg('mean')
+
+
+# In[4]:
+
+
+titanic.mean()
+
+
+# In[5]:
+
+
+titanic.max()
+
+
+# In[6]:
+
+
+titanic.agg('max')
+
+
+# In[7]:
+
+
+titanic.agg(['mean','std'])
+
+
+# In[8]:
+
+
+titanic.agg({'survived':'mean','age':['mean','max','min']})
+
+
+# In[12]:
+
+
+titanic[titanic.survived==1].agg({'age':['mean','max','min','median']})
+
+
+# In[16]:
+
+
+sales = pd.read_csv(r'sales.csv')
+sales
+
+
+# In[17]:
+
+
+sales.min(axis=0)
+
+
+# In[19]:
+
+
+sales.min(axis=1)
+
+
+# In[25]:
+
+
+def range(series):
+    return series.max() - series.min()
+
+
+# In[29]:
+
+
+sales.apply(lambda x:x.max(),axis=0)
+
+
+# In[32]:
+
+
+sales.apply(lambda x : x.min(),axis=0)
+
+
+# In[33]:
+
+
+summer = pd.read_csv(r'summer.csv')
+
+
+# In[34]:
+
+
+summer.head()
+
+
+# In[35]:
+
+
+summer.Athlete.head()
+
+
+# In[48]:
+
+
+def findComma(s):
+    index = 1
+    for i in s:
+        if i != ',':
+            index+=1
+        else:
+            break
+    return index-1
+
+
+# In[49]:
+
+
+summer.Athlete.apply(lambda x : x[0:findComma(x)])
+
+
+# In[51]:
+
+
+summer.Athlete.map(lambda x : x[0:findComma(x)])
+
+
+# In[80]:
+
+
+summer.Athlete.apply(lambda x : x.split(',') )
+
+
+# In[81]:
+
+
+names = summer.Athlete.loc[:10].copy()
+
+
+# In[82]:
+
+
+names
+
+
+# In[83]:
+
+
+#in pandas, you can use strig method with str
+names.str.lower()
+
+
+# In[84]:
+
+
+names.str.len()
+
+
+# In[86]:
+
+
+names.str.split(',')
+
+
+# In[87]:
+
+
+names.str.find('AND')
+
+
+# In[90]:
+
+
+names.str.split(',',n=2,expand=True)
+
+
+# In[57]:
+
+
+titanic = titanic.iloc[0:50,:]
+
+
+# In[58]:
+
+
+titanic.info()
+
+
+# In[66]:
+
+
+#if you use list of columns to set index, you define heirachical indexing
+titanic.set_index(['pclass','sex'],inplace=True)
+
+
+# In[60]:
+
+
+titanic.sort_index()
+
+
+# In[63]:
+
+
+titanic.sort_index(ascending=[False,True],inplace=True)
+
+
+# In[64]:
+
+
+#if you have heirachical index and want to swap between them
+titanic.swaplevel()
+
+
+# In[65]:
+
+
+titanic.reset_index(inplace=True)
+
+
+# In[69]:
+
+
+#if you have heirachical index, loc can slice you data base on index
+titanic.loc[1]
+
+
+# In[71]:
+
+
+titanic.loc[[1,2]]
+
+
+# In[73]:
+
+
+titanic.loc[(1,'male')]
+
+
+# In[74]:
+
+
+titanic.loc[(1,'male'),'age']
+
+
 # In[ ]:
 
 
