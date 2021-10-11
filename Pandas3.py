@@ -15,7 +15,7 @@ with open('titanic.csv') as f:
 text
 
 
-# In[3]:
+# In[1]:
 
 
 import pandas as pd
@@ -126,6 +126,91 @@ titanic.to_csv('titanic_clean.csv',index=False)
 new_titanic = pd.read_csv(r'titanic_clean.csv')
 
 new_titanic
+
+
+# In[2]:
+
+
+url = 'https://en.wikipedia.org/wiki/1976_Summer_Olympics_medal_table'
+pd.read_html(url)
+
+
+# In[3]:
+
+
+type(pd.read_html(url))
+
+
+# In[4]:
+
+
+pd.read_html(url)[0]
+
+
+# In[5]:
+
+
+pd.read_html(url)[1]
+
+
+# In[6]:
+
+
+len(pd.read_html(url))
+
+
+# In[8]:
+
+
+pd.read_html(url)[2]
+
+
+# In[9]:
+
+
+pd.read_html(url)[3]
+
+
+# In[10]:
+
+
+pd.read_html(url)[4]
+
+
+# In[11]:
+
+
+wiki1976 = pd.read_html(url)[1]
+
+
+# In[12]:
+
+
+wiki1976.info()
+
+
+# In[14]:
+
+
+wiki1976.head()
+
+
+# In[15]:
+
+
+wiki1976.set_index('Rank')
+
+
+# In[16]:
+
+
+wiki1976.set_index('Rank',inplace=True)
+
+
+# In[17]:
+
+
+wiki1976.head()
 
 
 # In[ ]:
