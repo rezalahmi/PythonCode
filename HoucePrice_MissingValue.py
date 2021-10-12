@@ -7,7 +7,7 @@
 import pandas as pd
 
 
-# In[28]:
+# In[2]:
 
 
 HouceData = pd.read_csv(r'train.csv')
@@ -19,19 +19,19 @@ HouceData = pd.read_csv(r'train.csv')
 HouceData.info()
 
 
-# In[30]:
+# In[3]:
 
 
 HouceData.set_index('Id',inplace=True)
 
 
-# In[31]:
+# In[4]:
 
 
 HouceData.head()
 
 
-# In[32]:
+# In[5]:
 
 
 HouceData_test = pd.read_csv(r'test.csv',index_col='Id')
@@ -49,7 +49,7 @@ HouceData_test.head()
 HouceData.info()
 
 
-# In[34]:
+# In[6]:
 
 
 #first of all remove missing value from target
@@ -76,7 +76,7 @@ X.head()
 y.head()
 
 
-# In[37]:
+# In[7]:
 
 
 from sklearn.model_selection import train_test_split
@@ -91,14 +91,14 @@ X_train,X_val, Y_train, Y_val = train_test_split(X,y,train_size=0.8,
 X_train.shape
 
 
-# In[18]:
+# In[8]:
 
 
 #in 3 columns, we have null value
 X_train.isnull().sum()
 
 
-# In[39]:
+# In[9]:
 
 
 #Missing Value 
@@ -115,13 +115,13 @@ imputed_X_train.columns = X_train.columns
 imputed_X_val.columns = X_val.columns
 
 
-# In[41]:
+# In[10]:
 
 
 imputed_X_train.isnull().sum()
 
 
-# In[42]:
+# In[11]:
 
 
 from sklearn.ensemble import RandomForestRegressor
@@ -131,7 +131,7 @@ myModel.fit(imputed_X_train,Y_train)
 print('MAE is %d' % mean_absolute_error(Y_val,myModel.predict(imputed_X_val)))
 
 
-# In[43]:
+# In[13]:
 
 
 myImputer1 = SimpleImputer(strategy='mean')
@@ -140,11 +140,60 @@ imputed_X_val = pd.DataFrame(myImputer1.transform(X_val))
 imputed_X_train.columns = X_train.columns
 imputed_X_val.columns = X_val.columns
 
+myModel = RandomForestRegressor(n_estimators=300,random_state=0,criterion='mae',max_depth=13)
+myModel.fit(imputed_X_train,Y_train)
+print('MAE is %d' % mean_absolute_error(Y_val,myModel.predict(imputed_X_val)))
 
-# In[44]:
 
+# In[25]:
+
+
+#in SimpleImputer you impute MissingValue based on Single Freature,
+#If you want to impute based on Multivatiate, use IterativImputer
+from sklearn.experimental import enable_iterative_imputer
+from sklearn.impute import IterativeImputer
+
+myImputer2 = IterativeImputer(random_state=0)
+myImputer2.fit(X_train)
+
+imputed_X_train = pd.DataFrame(myImputer2.fit_transform(X_train))
+imputed_X_val = pd.DataFrame(myImputer2.transform(X_val))
+imputed_X_train.columns = X_train.columns
+imputed_X_val.columns = X_val.columns
 
 myModel = RandomForestRegressor(n_estimators=300,random_state=0,criterion='mae',max_depth=13)
+myModel.fit(imputed_X_train,Y_train)
+print('MAE is %d' % mean_absolute_error(Y_val,myModel.predict(imputed_X_val)))
+
+
+# In[28]:
+
+
+#Imputation for completing missing values using k-Nearest Neighbors.
+#Each sample’s missing values are imputed using the mean value from n_neighbors
+#nearest neighbors found in the training set
+from sklearn.impute import KNNImputer
+myImputer3 = KNNImputer(n_neighbors=2)
+
+imputed_X_train = pd.DataFrame(myImputer3.fit_transform(X_train))
+imputed_X_val = pd.DataFrame(myImputer3.transform(X_val))
+imputed_X_train.columns = X_train.columns
+imputed_X_val.columns = X_val.columns
+
+myModel.fit(imputed_X_train,Y_train)
+print('MAE is %d' % mean_absolute_error(Y_val,myModel.predict(imputed_X_val)))
+
+
+# In[29]:
+
+
+myImputer4 = KNNImputer(n_neighbors=3)
+
+imputed_X_train = pd.DataFrame(myImputer4.fit_transform(X_train))
+imputed_X_val = pd.DataFrame(myImputer4.transform(X_val))
+imputed_X_train.columns = X_train.columns
+imputed_X_val.columns = X_val.columns
+
 myModel.fit(imputed_X_train,Y_train)
 print('MAE is %d' % mean_absolute_error(Y_val,myModel.predict(imputed_X_val)))
 
