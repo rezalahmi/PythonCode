@@ -89,7 +89,7 @@ summer.info()
 #Athlete Name
 
 
-# In[5]:
+# In[10]:
 
 
 summer.rename(columns={'Athlete Name':'Athlete_Name'},inplace=True)
@@ -114,7 +114,7 @@ summer.head(20)
 summer.Medal.value_counts()
 
 
-# In[6]:
+# In[5]:
 
 
 summer.Medal.replace(to_replace='Gold Medal',value='Gold',inplace=True)
@@ -139,14 +139,14 @@ titanic.Fare.dtype
 #you can see the Fare feature store as Object
 
 
-# In[7]:
+# In[6]:
 
 
 titanic.Fare.str.replace("$","")
 #you can use str.replace function to remove $ sign
 
 
-# In[8]:
+# In[7]:
 
 
 titanic.Fare = titanic.Fare.str.replace("$","")
@@ -159,7 +159,7 @@ titanic.Fare.dtype
 #now you can change the type of the feature
 
 
-# In[9]:
+# In[8]:
 
 
 titanic.Fare = pd.to_numeric(titanic.Fare)
@@ -178,13 +178,13 @@ summer.head()
 #you can see the Athlete_Name have different format(uppercase or title)
 
 
-# In[21]:
+# In[9]:
 
 
 summer.Athlete_Name.str.title()
 
 
-# In[10]:
+# In[11]:
 
 
 summer.Athlete_Name = summer.Athlete_Name.str.title()
@@ -223,14 +223,14 @@ summer.iloc[0,4]
 summer.loc[summer.Athlete_Name.str.contains('Hajos, Alfred')]
 
 
-# In[11]:
+# In[12]:
 
 
 #for removing space from String
 summer.Athlete_Name = summer.Athlete_Name.str.strip(to_strip=' ')
 
 
-# In[22]:
+# In[13]:
 
 
 #now you can run this code
@@ -243,7 +243,7 @@ summer.loc[summer.Athlete_Name=='Hajos, Alfred']
 titanic.info()
 
 
-# In[12]:
+# In[14]:
 
 
 #for change the type of coulmns
@@ -276,7 +276,7 @@ titanic.info()
 titanic.isna()
 
 
-# In[34]:
+# In[15]:
 
 
 titanic.isna().sum(axis=0)
@@ -288,13 +288,13 @@ titanic.isna().sum(axis=0)
 titanic.isna().any()
 
 
-# In[36]:
+# In[16]:
 
 
 titanic[titanic.isna().any(axis=1)]
 
 
-# In[37]:
+# In[17]:
 
 
 titanic.notna().sum()
@@ -306,7 +306,7 @@ titanic.notna().sum()
 titanic.notna().all(axis=1)
 
 
-# In[41]:
+# In[18]:
 
 
 titanic[titanic.notna().all(axis=1)]
@@ -334,19 +334,19 @@ sns.heatmap(titanic.notna())
 titanic.Age.value_counts(dropna=False)
 
 
-# In[17]:
+# In[19]:
 
 
 import numpy as np
 
 
-# In[18]:
+# In[20]:
 
 
 titanic.Age.replace(to_replace='Missing Data',value=np.nan,inplace=True)
 
 
-# In[19]:
+# In[21]:
 
 
 titanic.Age.value_counts(dropna=False)
@@ -404,20 +404,20 @@ titanic.dropna(axis=0,how='any',thresh=8).shape
 titanic.dropna(axis=1,how='any',thresh=500).shape
 
 
-# In[34]:
+# In[22]:
 
 
 #you can see you don't miss data if you drop Deck column
 titanic.dropna(axis=1,how='any',thresh=500,inplace=True)
 
 
-# In[35]:
+# In[23]:
 
 
 titanic.info()
 
 
-# In[37]:
+# In[24]:
 
 
 #some feature is very important and should considered
@@ -430,29 +430,195 @@ titanic.dropna(axis=0,how='any',subset=['Survived','Class','Gender','Age']      
 summer.info()
 
 
-# In[40]:
+# In[25]:
 
 
 summer.dropna().shape
 
 
-# In[50]:
+# In[26]:
 
 
 summer[summer.isna().any(axis=1)]
 
 
-# In[51]:
+# In[27]:
 
 
 #in this case you can drop nan, you do'nt loss more data
 summer.dropna(inplace=True)
 
 
-# In[52]:
+# In[28]:
 
 
 summer.info()
+
+
+# In[29]:
+
+
+#we have 173 sample with duplicate
+titanic.duplicated(keep=False).sum()
+
+
+# In[31]:
+
+
+#if don't consider the one of two duplicated sample, we have 114 duplicated sapmle
+titanic.duplicated(keep='first').sum()
+
+
+# In[32]:
+
+
+#for drop duplicate use drop_duplicate metho
+titanic.drop_duplicates(ignore_index=True).info()
+
+
+# In[33]:
+
+
+#if you set ignore_index=False it don't reset the index
+#index between 0 to 890, but you have 780 entries
+titanic.drop_duplicates(ignore_index=False).info()
+
+
+# In[35]:
+
+
+titanic.info()
+
+
+# In[39]:
+
+
+titanic.Age = titanic.Age.astype('float')
+
+
+# In[40]:
+
+
+titanic.info()
+
+
+# In[41]:
+
+
+titanic.describe()
+
+
+# In[44]:
+
+
+titanic.boxplot('Age',figsize=(12,6))
+
+
+# In[46]:
+
+
+titanic.Age.plot()
+# you can see you have index label on X axie and Age on Y axie
+
+
+# In[49]:
+
+
+titanic.loc[titanic.Age > 90]
+
+
+# In[50]:
+
+
+age_outlaier_index = titanic.loc[titanic.Age > 90].index
+
+
+# In[51]:
+
+
+age_outlaier_index
+
+
+# In[52]:
+
+
+titanic.Age[age_outlaier_index] = titanic.Age[age_outlaier_index]/10
+
+
+# In[55]:
+
+
+titanic.loc[age_outlaier_index]
+
+
+# In[56]:
+
+
+titanic.info()
+#please see the memoty usage of data set
+
+
+# In[58]:
+
+
+titanic.describe(include='object')
+
+
+# In[59]:
+
+
+#you can change the Gender and Emb feature to category to reduce the memory usage
+titanic.Gender = titanic.Gender.astype('category')
+
+
+# In[62]:
+
+
+titanic.Gender.dtype
+
+
+# In[63]:
+
+
+titanic.Emb = titanic.Emb.astype('category')
+
+
+# In[66]:
+
+
+titanic.info()
+#you reduce the size of the data set
+
+
+# In[67]:
+
+
+summer.info()
+
+
+# In[69]:
+
+
+summer.describe(include='object')
+
+
+# In[70]:
+
+
+summer.Gender = summer.Gender.astype('category')
+summer.Medal = summer.Medal.astype('category')
+
+
+# In[71]:
+
+
+summer.info()
+
+
+# In[72]:
+
+
+pd.NA
 
 
 # In[ ]:
